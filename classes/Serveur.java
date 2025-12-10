@@ -1,4 +1,0 @@
-nfaifniafnia
-enangoaegnae
-        gozengozgn
-zgepng
