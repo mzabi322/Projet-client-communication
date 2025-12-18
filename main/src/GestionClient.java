@@ -1,4 +1,3 @@
-package main;
 
 import java.net.*;
 import java.io.*;
@@ -11,9 +10,9 @@ public class GestionClient extends Thread {
     private PrintWriter out;
     private String pseudo;
 
-    public GestionClient(Socket socket, Serveur server) {
+    public GestionClient(Socket socket) {
         this.socket = socket;
-        this.server = server;
+
     }
 
     public void envoieMessage(String msg) {
@@ -27,18 +26,22 @@ public class GestionClient extends Thread {
             out = new PrintWriter(socket.getOutputStream(), true);
 
             pseudo = in.readLine();
-            server.broadcast( pseudo + " s'est connecté");
+            Serveur.broadcast( pseudo + " s'est connecté",this);
 
             String msg;
             while ((msg = in.readLine()) != null) {
-                server.broadcast(pseudo + " : " + msg);
+
+                if (msg.equalsIgnoreCase("q")) {
+                    break;
+                }
+                Serveur.broadcast(pseudo + " : " + msg,this);
             }
 
         } catch (IOException e) {
             System.out.println("Client déconnecté");
         } finally {
-            server.supprimerClient(this);
-            server.broadcast( pseudo + " s'est déconnecté");
+            Serveur.supprimerClient(this);
+            Serveur.broadcast( pseudo + " s'est déconnecté",this);
             try { socket.close(); } catch (IOException ignored) {}
         }
     }
