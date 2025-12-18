@@ -3,7 +3,7 @@ package main;
 import java.net.*;
 import java.io.*;
 
-public class ClientHandler extends Thread {
+public class GestionClient extends Thread {
 
     private Socket socket;
     private Serveur server;
@@ -11,7 +11,7 @@ public class ClientHandler extends Thread {
     private PrintWriter out;
     private String pseudo;
 
-    public ClientHandler(Socket socket, Serveur server) {
+    public GestionClient(Socket socket, Serveur server) {
         this.socket = socket;
         this.server = server;
     }

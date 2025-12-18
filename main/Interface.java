@@ -11,7 +11,7 @@ public class Interface {
 
     public Interface() {
         JFrame frame = new JFrame("Chat ");
-        frame.setSize(400, 400);
+        frame.setSize(500, 500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         area = new JTextArea();

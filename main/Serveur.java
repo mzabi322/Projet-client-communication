@@ -7,7 +7,7 @@ import java.util.*;
 
 public class Serveur {
     private ServerSocket serverSocket;
-    private final ArrayList<ClientHandler> clients = new ArrayList<>();
+    private final ArrayList<GestionClient> clients = new ArrayList<>();
 
     public void start(int port) throws IOException {
         serverSocket = new ServerSocket(port);
@@ -15,19 +15,19 @@ public class Serveur {
 
         while (true) {
             Socket socket = serverSocket.accept();
-            ClientHandler client = new ClientHandler(socket, this);
+            GestionClient client = new GestionClient(socket, this);
             clients.add(client);
             client.start();
         }
     }
 
     public void broadcast(String message) {
-        for (ClientHandler c : clients) {
+        for (GestionClient c : clients) {
             c.envoieMessage(message);
         }
     }
 
-    public void supprimerClient(ClientHandler client) {
+    public void supprimerClient(GestionClient client) {
         clients.remove(client);
     }
 
